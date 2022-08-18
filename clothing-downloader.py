@@ -36,5 +36,5 @@ for count, group_id in enumerate(group_ids):
             time.sleep(45)
             success = functions.get_pages(group_ids[count])
     else:
-        # If it stopped without any issue, add it to the pages list
+        # If it finished without any issue, add it to the pages list
         all_pages.append(success[0])
