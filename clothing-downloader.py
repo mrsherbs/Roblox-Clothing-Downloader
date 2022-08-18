@@ -45,6 +45,7 @@ for _, group_id in enumerate(group_ids):
 # From every page, get every asset's info and add it to a list
 for _, group in enumerate(page_groups):
     for _, page in enumerate(group):
-        print(page["data"])
-
-print(len(assets))
+        for _, asset in enumerate(page["data"]):
+            # If the item is on sale OR if excluding offsale assets is off in the config
+            if ("price" in asset) or not exclude_offsale:
+                assets.append(asset)
