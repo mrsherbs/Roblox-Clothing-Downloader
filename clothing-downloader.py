@@ -46,6 +46,21 @@ for _, group_id in enumerate(group_ids):
 for _, group in enumerate(page_groups):
     for _, page in enumerate(group):
         for _, asset in enumerate(page["data"]):
-            # If the item is on sale OR if excluding offsale assets is off in the config
-            if ("price" in asset) or not exclude_offsale:
+            # If the item is on sale or if excluding offsale assets is set to False
+            # If the item is not a T-Shirt
+            if ("price" in asset or not exclude_offsale) and (not asset["assetType"] == 2):
+                # If the asset is a shirt
+                if asset["assetType"] == 11:
+                    if include_favorite_count:
+                        asset["name"] = asset["name"] + " [+]" + " [" + str(asset["favoriteCount"]) + "]"
+                    else:
+                        asset["name"] = asset["name"] + " [+]"
+                # If the asset is a pair of pants
+                elif include_favorite_count:
+                    asset["name"] = asset["name"] + " [-]" + " [" + str(asset["favoriteCount"]) + "]"
+                else:
+                    asset["name"] = asset["name"] + " [-]"
+
+                print(asset["name"])
                 assets.append(asset)
+
