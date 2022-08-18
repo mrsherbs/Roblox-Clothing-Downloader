@@ -6,7 +6,7 @@ import requests
 wait_time = 0.5
 
 
-# Input a string and it will return either True, False, or None
+# Input a string, and it will return either True, False, or None
 def string_to_bool(value):
     if value == "True" or value == "true":
         return True
