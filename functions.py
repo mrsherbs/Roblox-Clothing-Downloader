@@ -1,9 +1,15 @@
 import json
 import time
 import requests
+import configparser
+
+config_file = "config.ini"
+config = configparser.ConfigParser()
+config.read(config_file)
 
 # Wait time for every web request, necessary because of how archaic and undocumented the Roblox API is
-wait_time = 0.5
+wait_time = float(config.get("wait", "base"))
+ratelimit_wait = float(config.get("wait", "ratelimit"))
 
 
 # Input a string, and it will return either True, False, or None
@@ -37,7 +43,8 @@ def get_pages(group, **kwargs):
         time.sleep(wait_time)
         # Get the cursor param
         cursor = kwargs_recurse.get("cursor", None)
-        catalog_url = "https://catalog.roblox.com/v1/search/items/details?Category=3&CreatorType=2&IncludeNotForSale=true&Limit=30&CreatorTargetId=" + str(group_id)
+        catalog_url = "https://catalog.roblox.com/v1/search/items/details?Category=3&CreatorType=2&IncludeNotForSale=true&Limit=30&CreatorTargetId=" + str(
+            group_id)
 
         # If there is a cursor, change the catalog link to include the cursor
         if cursor:
@@ -77,3 +84,37 @@ def get_pages(group, **kwargs):
         print("All pages could not be downloaded")
         # We return the all_pages list since it can be used to run this function again from the next page
         return [all_pages, False]
+
+
+# Waits 45 seconds for the roblox rate limit to end
+def wait_45():
+    print("Retrying in 45 seconds...")
+    time.sleep(45)
+
+
+# Converts a catalog url or asset ID to asset delivery link
+def to_asset_delivery_url(to_be_converted):
+    converted = str(to_be_converted).replace("https://www.roblox.com/catalog/", "")
+    converted = converted.replace("http://www.roblox.com/asset/?id=", "")
+    converted = converted.split("/")
+    return "https://assetdelivery.roblox.com/v2/asset?id=" + converted[0]
+
+
+# Returns an asset download link from the inputted link or asset ID
+def get_asset_download_link(asset):
+    converted = to_asset_delivery_url(asset)
+    resp = requests.get(converted)
+    text = resp.text
+    data = json.loads(text)
+
+    if "errors" in data:
+        print("Could not be saved")
+        print(data)
+        return None
+
+    return data["locations"][0]["location"]
+
+
+def download(url):
+    request = requests.get(url)
+    return request.content
