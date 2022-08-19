@@ -12,7 +12,7 @@ wait_time = float(config.get("wait", "base"))
 ratelimit_wait = float(config.get("wait", "ratelimit"))
 
 
-# Input a string, and it will return either True, False, or None
+# Takes an inputted string, and will return either True, False, or None
 def string_to_bool(value):
     if value == "True" or value == "true":
         return True
