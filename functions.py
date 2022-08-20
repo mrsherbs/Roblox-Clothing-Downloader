@@ -44,8 +44,7 @@ def get_pages(group, **kwargs):
         time.sleep(wait_time)
         # Get the cursor param
         cursor = kwargs_recurse.get("cursor", None)
-        catalog_url = "https://catalog.roblox.com/v1/search/items/details?Category=3&CreatorType=2&IncludeNotForSale=true&Limit=30&CreatorTargetId=" + str(
-            group_id)
+        catalog_url = "https://catalog.roblox.com/v1/search/items/details?Category=3&CreatorType=2&IncludeNotForSale=true&Limit=30&CreatorTargetId=" + str(group_id)
 
         # If there is a cursor, change the catalog link to include the cursor
         if cursor:
@@ -118,7 +117,7 @@ def get_asset_download_link(asset):
 
 # Download a file and return its content
 def download(url):
-    request = requests.get(url)
+    request = requests.get(url, timeout=60)
     return request.content
 
 

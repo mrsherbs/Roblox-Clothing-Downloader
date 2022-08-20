@@ -1,12 +1,16 @@
+import configparser
 import os
 import cv2
 import functions
 
-directory = 'downloaded-assets'
-export_directory = 'background-remover'
+config_file = "config.ini"
+config = configparser.ConfigParser()
+config.read(config_file)
+
+directory = save_directory = config.get("background-replacer", "directory")
 logo_image = cv2.imread('logo.png', cv2.IMREAD_UNCHANGED)
 logo = cv2.resize(logo_image, (100, 100))
-background = [255, 255, 224, 255]
+background = functions.convert_list(config.get("background-replacer", "background_color").split(","), int)
 
 
 for filename in os.listdir(directory):
@@ -62,5 +66,6 @@ for filename in os.listdir(directory):
 
         x_offset = y_offset = 25
         image[y_offset:y_offset + logo.shape[0], x_offset:x_offset + logo.shape[1]] = logo
-        cv2.imwrite(export_directory + "\\" + filename, image)
+        cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        cv2.imwrite(directory + "\\" + filename, image)
         print("Saved " + filename)
