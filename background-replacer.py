@@ -17,7 +17,7 @@ background = functions.convert_list(config.get("background-replacer", "backgroun
 
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
-    if os.path.isfile(f):
+    if os.path.isfile(f) and not filename == ".gitkeep":
         image = cv2.imread(f, cv2.IMREAD_UNCHANGED)
 
         # Remove top section
@@ -71,4 +71,4 @@ for filename in os.listdir(directory):
             image[y_offset:y_offset + logo.shape[0], x_offset:x_offset + logo.shape[1]] = logo
         cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         cv2.imwrite(directory + "\\" + filename, image)
-        print("Saved " + filename)
+        print("Saved: " + filename)
