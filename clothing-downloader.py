@@ -80,7 +80,7 @@ print(str(len(assets)) + " assets to be downloaded")
 print("Downloading asset's XML files")
 # Get the XML file containing the download link for an asset's template
 for asset in assets:
-    time.sleep(wait_time/2)
+    time.sleep(wait_time/4)
     asset_name = asset["name"]
     asset_id = asset["id"]
     # Get the XML files link, which contains the download link for the asset's template
@@ -104,7 +104,7 @@ print("Downloading templates")
 
 # Get the download URLs from the XMLs and download the assets
 for xml in xml_content:
-    time.sleep(wait_time/2)
+    time.sleep(wait_time/4)
     xml_file = xml[0]
     asset_name = xml[1]["name"]
     root = ElementTree.fromstring(xml[0])

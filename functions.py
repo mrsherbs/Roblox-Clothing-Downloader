@@ -124,6 +124,7 @@ def download(url):
 
 # Convert string into a string that can be used as a file name
 def slugify(value):
+    value = str(value)
     value = value.replace("<", "")
     value = value.replace(">", "")
     value = value.replace(":", "")
@@ -152,8 +153,8 @@ def save_file(save_directory, download_url, name, extension):
     count = 0
     while True:
         count += 1
-        if check_if_path_exists(save_directory+"/"+name+extension):
-            name = name + " (" + str(count) + ")"
+        if check_if_path_exists(save_directory + "/" + name + extension):
+            name = name + "-" + str(count)
         else:
             break
 
