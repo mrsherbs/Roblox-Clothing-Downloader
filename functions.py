@@ -148,7 +148,7 @@ def check_if_path_exists(path):
 # Save a file to the specified location
 def save_file(save_directory, download_url, name, extension):
     name = slugify(name)
-    r = requests.get(download_url, allow_redirects=True)
+    r = requests.get(download_url, allow_redirects=True, timeout=60)
 
     count = 0
     while True:
@@ -160,3 +160,11 @@ def save_file(save_directory, download_url, name, extension):
 
     open(save_directory + '/' + name + extension, 'wb').write(r.content)
     print("Saved file: " + name + extension)
+
+
+# Remove pixels from an image (This is an awful method, but it works)
+def remove_pixels(y_1, x_1, y_2, x_2, image, background):
+    for y in range(y_1):
+        for x in range(x_1):
+            image[abs(x + x_2), abs(y + y_2)] = background
+    return image
