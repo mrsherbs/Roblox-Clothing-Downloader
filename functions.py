@@ -1,4 +1,5 @@
 import json
+import os
 import time
 import requests
 import configparser
@@ -87,7 +88,7 @@ def get_pages(group, **kwargs):
 
 
 # Waits 45 seconds for the roblox rate limit to end
-def wait_45():
+def wait_ratelimit():
     print("Retrying in 45 seconds...")
     time.sleep(45)
 
@@ -115,6 +116,46 @@ def get_asset_download_link(asset):
     return data["locations"][0]["location"]
 
 
+# Download a file and return its content
 def download(url):
     request = requests.get(url)
     return request.content
+
+
+# Convert string into a string that can be used as a file name
+def slugify(value):
+    value = value.replace("<", "")
+    value = value.replace(">", "")
+    value = value.replace(":", "")
+    value = value.replace('"', "")
+    value = value.replace("/", "")
+    value = value.replace("\\", "")
+    value = value.replace("|", "")
+    value = value.replace("?", "")
+    value = value.replace("*", "")
+
+    str_en = value.encode("ascii", "ignore")
+    str_de = str_en.decode()
+
+    return str_de
+
+
+def check_if_path_exists(path):
+    return os.path.exists(path)
+
+
+# Save a file to the specified location
+def save_file(save_directory, download_url, name, extension):
+    name = slugify(name)
+    r = requests.get(download_url, allow_redirects=True)
+
+    count = 0
+    while True:
+        count += 1
+        if check_if_path_exists(save_directory+"/"+name+extension):
+            name = name + " (" + str(count) + ")"
+        else:
+            break
+
+    open(save_directory + '/' + name + extension, 'wb').write(r.content)
+    print("Saved file: " + name + extension)
