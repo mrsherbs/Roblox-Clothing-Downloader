@@ -8,7 +8,8 @@ Automation tools for Roblox clothing assets
 
 # Usage
 Change settings in the config.ini file, then run the clothing-downloader program.
-Optionally, run the background-remover program to remove the template backgrounds.
+Optionally, move the downloaded templates to the designated background replacer direcotry. 
+Them, run the background-remover program to replace the template backgrounds.
 
 # How this works
 First it uses a function that, using the group's id, downloads a page of assets. 
@@ -17,4 +18,4 @@ We then add all the assets to a list, and return that list.
 From there, we use that list to download all the asset's XML files which all contain a download link to the template file. 
 We can then use that link to download the asset's template file.
 
-The background replacer will take a template image and remove the original posters background, to erase any watermarks.
+The background replacer will take a template image and replace the original posters background, to erase any watermarks.
