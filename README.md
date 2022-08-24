@@ -12,9 +12,9 @@ Optionally, move the downloaded templates to the designated background replacer 
 Them, run the background-remover program to replace the template backgrounds.
 
 # How this works
-First it, using the group's id, it downloads a page of 30 assets. 
+First it, using the group's id, downloads a page of assets. 
 It then uses that page's cursor to recursively download the next page until there are no more pages left. 
 From there, it gets the asset IDs from the pages, and downloads an XML file from Roblox. The XML file has a link inside it.
 It can then use that link to download the asset's template file.
 
-The background replacer will take a template image and replace the original posters background, to erase any watermarks. It can also add a logo to a template.
+The background replacer will take a template image and replace the original posters background, to erase any watermarks.
