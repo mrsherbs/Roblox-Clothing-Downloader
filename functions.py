@@ -62,7 +62,7 @@ def get_pages(group, **kwargs):
         else:
             # Save the page to the list
             all_pages.append(data)
-            print("Page of assets saved")
+            print("Asset page saved")
 
             # Get the next cursor from the page
             next_cursor = data["nextPageCursor"]

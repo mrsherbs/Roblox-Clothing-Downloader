@@ -97,7 +97,7 @@ for asset in assets:
                 xml_content.append([functions.download(xml_link), asset])
                 break
 
-    print("Downloading XML for: " + asset["name"])
+    print("Downloading XML file: " + asset["name"])
 
 print("XML files downloaded")
 print("Downloading templates")
