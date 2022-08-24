@@ -14,6 +14,7 @@ if add_logo:
     logo = cv2.resize(logo_image, (100, 100))
 background = functions.convert_list(config.get("background-replacer", "background_color").split(","), int)
 
+# Take a template image and remove the original posters background, to erase any watermarks.
 
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
