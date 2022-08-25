@@ -1,6 +1,6 @@
 # Roblox-Clothing-Tools
 Automation tools for Roblox clothing assets.
-A Roblox clothing utility for mass downloads and uploads of assets.
+A Roblox clothing bot utility for mass downloads and uploads of assets.
 
 # Features
 * Automatically download clothing assets from Roblox
