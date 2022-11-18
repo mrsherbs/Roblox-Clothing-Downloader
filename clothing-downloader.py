@@ -85,12 +85,10 @@ for asset in assets:
         xml_content.append([functions.download(xml_link), asset])
     else:
         # Basically, repeat wait until Roblox stops ratelimiting
-        while True:
-            functions.wait_ratelimit()
-            xml_link = functions.get_asset_download_link(asset_id)
-            if xml_link:
-                xml_content.append([functions.download(xml_link), asset])
-                break
+        functions.wait_ratelimit()
+        xml_link = functions.get_asset_download_link(asset_id)
+        if xml_link:
+            xml_content.append([functions.download(xml_link), asset])
 
     print("Downloading XML file: " + asset["name"])
 
