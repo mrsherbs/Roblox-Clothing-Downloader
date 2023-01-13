@@ -8,6 +8,12 @@ config_file = "config.ini"
 config = configparser.ConfigParser()
 config.read(config_file)
 
+# First it uses a function that, using the group's id, downloads a page of assets. 
+# It then uses that page's cursor to recursively download the next page until there are no more pages left. 
+# We then add all the assets to a list, and return that list.
+# From there, we use that list to download all the asset's XML files which all contain a download link to the template file. 
+# We can then use that link to download the asset's template file.
+
 # Downloader settings
 save_directory = config.get("downloader", "save_directory")
 group_ids = functions.convert_list(config.get("downloader", "group_ids").split(","), int)
